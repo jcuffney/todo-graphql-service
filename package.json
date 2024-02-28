@@ -1,0 +1,30 @@
+{
+  "name": "graphql-service",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "compile": "tsc",
+    "start": "node ./src/index.js",
+    "dev": "nodemon ./src/index.js"
+  },
+  "author": "Joe Cuffney <josephcuffney@gmail.com>",
+  "license": "ISC",
+  "keywords": [],
+  "description": "Todo list graphql",
+  "type": "module",
+  "dependencies": {
+    "@apollo/server": "^4.10.0",
+    "@aws-sdk/client-dynamodb": "^3.523.0",
+    "@aws-sdk/lib-dynamodb": "^3.523.0",
+    "dataloader": "^2.2.2",
+    "graphql": "^16.8.1",
+    "ramda": "^0.29.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.22",
+    "dotenv": "^16.4.5",
+    "nodemon": "^3.1.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  }
+}

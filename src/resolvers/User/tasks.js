@@ -1,0 +1,1 @@
+export default () => ({ edges: [], pageInfo: { hasNextPage: false, hasPreviousPage: false } })

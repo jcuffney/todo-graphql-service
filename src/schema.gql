@@ -1,0 +1,54 @@
+scalar Date
+
+interface Node {
+  id: ID!
+}
+
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+}
+
+type User implements Node {
+  id: ID!
+  firstName: String
+  lastName: String
+  email: String!
+  username: String
+  createdAt: Date!
+  updatedAt: Date
+  deletedAt: Date
+
+  tasks: TaskConnection!
+}
+
+type Task implements Node {
+  id: ID!
+  title: String!
+  description: String
+  createdAt: Date!
+  updatedAt: Date
+  deletedAt: Date
+  createdBy: Date!
+  updatedBy: Date
+  deletedBy: Date
+}
+
+type TaskConnection {
+  edges: [TaskEdge]
+  pageInfo: PageInfo!
+}
+
+type TaskEdge {
+  cursor: String!
+  node: Task!
+}
+
+type Query {
+  health: String
+  whoami: User
+  node(id: ID!): Node
+  search(query: String!): [Node!]!
+}
