@@ -48,8 +48,8 @@ export const NodeClient = curry((ddb, TableName) => {
             const id = path(['Key', 'id'], opts);
             return loader.load(id);
         },
-        async put(opts) {
-            const Item = prop('Item', opts);
+        async put(Item) {
+            // const Item = prop('Item', opts);
             const putCommand = new PutCommand({
                 TableName,
                 Item,

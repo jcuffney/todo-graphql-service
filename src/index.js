@@ -6,7 +6,7 @@ import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 
 import resolvers from './resolvers/index.js';
-import context from './context/index.js';
+import getContext from './context/index.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -17,9 +17,11 @@ const server = new ApolloServer({
   resolvers,
 });
 
+const ctx = getContext({ req: {} });
+
 const { url } = await startStandaloneServer(server, {
   listen: { port: 4000 },
-  context,
+  context: ctx,
 });
 
 console.log(`🚀  Server ready at: ${url}`);

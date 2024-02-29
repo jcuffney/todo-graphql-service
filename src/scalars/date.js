@@ -1,22 +1,32 @@
-import { GraphQLScalarType, Kind } from 'graphql';
+import { GraphQLScalarType, GraphQLError, Kind } from 'graphql';
+
+const ISO_REGEX = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}(?:\.\d*)?)((-(\d{2}):(\d{2})|Z)?)$/
 
 export default new GraphQLScalarType({
     name: 'Date',
-    description: 'Date custom scalar type',
-    description: 'ISO 8601 Date string',
+    description: 'A date string in ISO 8601 format (YYYY-MM-DD)',
+
     serialize(value) {
-        // Convert outgoing Date to ISO 8601 string for JSON serialization
-        return value.toISOString();
-    },
-    parseValue(value) {
-        // Convert incoming ISO 8601 string from variables
-        return new Date(value);
-    },
-    parseLiteral(ast) {
-        // Convert incoming ISO 8601 string from inline literals
-        if (ast.kind === Kind.STRING) {
-            return new Date(ast.value);
+        // Ensure the value is a valid ISO date string
+        if (!ISO_REGEX.test(value)) {
+            throw new GraphQLError('Invalid ISO date format.');
         }
-        return null;
+        return value; // Return the date in YYYY-MM-DD format
+    },
+
+    parseValue(value) {
+        // Validate the ISO date format
+        if (!ISO_REGEX.test(value)) {
+            throw new GraphQLError('Invalid ISO date format.');
+        }
+        return value;
+    },
+
+    parseLiteral(ast) {
+        // Ensure the AST value is a valid ISO date string
+        if (ast.kind !== Kind.STRING || !ISO_REGEX.test(ast.value)) {
+            throw new GraphQLError('Invalid ISO date format.');
+        }
+        return ast.value;
     },
 });

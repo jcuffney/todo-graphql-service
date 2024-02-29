@@ -51,3 +51,21 @@ Resources:
           ProvisionedThroughput:
             ReadCapacityUnits: 5
             WriteCapacityUnits: 5
+
+  TaskTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: !Join
+        - "-"
+        - - !Ref Application
+          - !Ref Environment
+          - "Task"
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      ProvisionedThroughput:
+        ReadCapacityUnits: 5
+        WriteCapacityUnits: 5
