@@ -44,8 +44,7 @@ export const NodeClient = curry((ddb, TableName) => {
         { maxBatchSize: 100 },
     );
     return {
-        async get(opts) {
-            const id = path(['Key', 'id'], opts);
+        async get(id) {
             return loader.load(id);
         },
         async put(Item) {

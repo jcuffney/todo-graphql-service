@@ -21,7 +21,7 @@ export default ({ req = {} } = {}) => {
     const Task = NodeClient(docClient, TASK_TABLE);
 
     return async () => {
-        const currentUser = await User.get({ Key: { id: USER_ID } });
+        const currentUser = await User.get(USER_ID);
 
         return {
             // general

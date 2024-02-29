@@ -1,13 +1,17 @@
 import Date from '../scalars/date.js';
 import User_tasks from './User/tasks.js';
 import node from './node.js';
+import { fromGlobalId } from '../lib/relay.js';
 
 import { nodeField, nodeFieldOr } from '../lib/relay.js';
 
 export default {
   Date,
   Node: {
-    __resolveType: ({ __typename }) => __typename,
+    __resolveType: ({ id: globalId }) => {
+      const { type } = fromGlobalId(globalId);
+      return type;
+    },
   },
   User: {
     __resolveType: ({ __typename }) => __typename,
