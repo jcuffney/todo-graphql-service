@@ -46,9 +46,25 @@ type TaskEdge {
   node: Task!
 }
 
+input SearchInput {
+  query: String
+  first: Int! = 10
+  after: String
+}
+
+type NodeConnection {
+  edges: [NodeEdge]
+  pageInfo: PageInfo!
+}
+
+type NodeEdge {
+  cursor: String!
+  node: Node!
+}
+
 type Query {
   health: String
   whoami: User
   node(id: ID!): Node
-  search(query: String!): [Node!]!
+  search(input: SearchInput!): NodeConnection!
 }

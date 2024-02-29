@@ -17,6 +17,7 @@
     "@aws-sdk/client-dynamodb": "^3.523.0",
     "@aws-sdk/lib-dynamodb": "^3.523.0",
     "dataloader": "^2.2.2",
+    "fast-json-stable-stringify": "^2.1.0",
     "graphql": "^16.8.1",
     "ramda": "^0.29.1"
   },
