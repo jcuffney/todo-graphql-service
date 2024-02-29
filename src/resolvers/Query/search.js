@@ -5,7 +5,6 @@ import {
     nodeToEdgeWith, relayEdgesConnection
 } from '../../lib/graphql.js';
 
-
 const getNodeCursor = pipe(pick(['id']), serializeKey);
 
 export default (_, { input: { first, after, query } = {} }, { User }) => {
@@ -16,7 +15,4 @@ export default (_, { input: { first, after, query } = {} }, { User }) => {
         map(nodeToEdgeWith(getNodeCursor)),
         relayEdgesConnection({ after, first }),
     ))
-
-    // return ({ edges: [], pageInfo: { hasNextPage: false, hasPreviousPage: false } })
-
 }
