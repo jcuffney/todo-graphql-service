@@ -68,3 +68,8 @@ type Query {
   node(id: ID!): Node
   search(input: SearchInput!): NodeConnection!
 }
+
+# How can I use subscriptions with dynamodb streams?
+# type Subscription {
+#   taskCreated: String
+# }

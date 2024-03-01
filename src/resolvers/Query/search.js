@@ -7,9 +7,7 @@ import {
 
 const getNodeCursor = pipe(pick(['id']), serializeKey);
 
-export default (_, { input: { first, after, query } = {} }, { User }) => {
-    console.log("search query=", query)
-
+export default (_, { input: { first, after } = {} }, { User }) => {
     return applyTo({}, pipe(
         User.scanIterator,
         map(nodeToEdgeWith(getNodeCursor)),
