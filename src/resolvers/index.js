@@ -5,8 +5,9 @@ import tasks from './User/tasks.js';
 import search from './Query/search.js';
 import whoami from './Query/whoami.js';
 import node from './Query/node.js';
-
 import resolveTypeNode from './Node/__resolveType.js';
+
+import pubsub from '../context/pubsub.js';
 
 export default {
     Date,
@@ -14,7 +15,6 @@ export default {
         __resolveType: resolveTypeNode,
     },
     User: {
-        __resolveType: ({ __typename }) => __typename,
         id: nodeField(['id']),
         firstName: nodeFieldOr('', ['firstName']),
         lastName: nodeField('', ['lastName']),
@@ -36,4 +36,9 @@ export default {
         whoami,
         search,
     },
+    Subscription: {
+        numberIncremented: {
+            subscribe: () => pubsub.asyncIterator(['NUMBER_INCREMENTED']),
+        },
+    }
 };

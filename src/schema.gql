@@ -69,7 +69,6 @@ type Query {
   search(input: SearchInput!): NodeConnection!
 }
 
-# How can I use subscriptions with dynamodb streams?
-# type Subscription {
-#   taskCreated: String
-# }
+type Subscription {
+  numberIncremented: Int
+}

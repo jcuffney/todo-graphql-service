@@ -2,11 +2,10 @@ import { DynamoDBDocumentClient } from '@aws-sdk/lib-dynamodb';
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
 import { NodeClient } from '../lib/dynamodb.js';
 
-export default ({ req = {} } = {}) => {
+import pubsub from '../context/pubsub.js';
 
-    // eventually this would come from a token
-    const USER_ID = "VXNlcjox";
-
+export default () => {
+    // this is executed at server startup
     const {
         NODE_ENV = "development",
         AWS_REGION = "us-east-1",
@@ -20,7 +19,10 @@ export default ({ req = {} } = {}) => {
     const User = NodeClient(docClient, USER_TABLE);
     const Task = NodeClient(docClient, TASK_TABLE);
 
-    return async () => {
+    // this function is executed once per request
+    return async ({ req = {} } = {}) => {
+        // eventually this would come from a token
+        const USER_ID = "VXNlcjox";
         const currentUser = await User.get(USER_ID);
 
         return {
@@ -32,6 +34,8 @@ export default ({ req = {} } = {}) => {
             // dynamodb tables
             User,
             Task,
+            // pubsub for subscriptions
+            pubsub,
         };
     }
 };
