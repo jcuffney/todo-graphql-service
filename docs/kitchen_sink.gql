@@ -1,0 +1,65 @@
+fragment PageInfoFields on PageInfo {
+  hasNextPage
+  hasPreviousPage
+  startCursor
+  endCursor
+}
+
+fragment UserFields on User {
+  id
+  firstName
+  lastName
+  createdAt
+  updatedAt
+  deletedAt
+  email
+  username
+}
+
+fragment TaskFields on Task {
+  id
+  title
+  description
+  createdAt
+  updatedAt
+  deletedAt
+}
+
+query KitchenSinkQuery {
+  health
+  whoami {
+    ...UserFields
+    tasks {
+      pageInfo {
+        ...PageInfoFields
+      }
+      edges {
+        cursor
+        node {
+          ...TaskFields
+        }
+      }
+    }
+  }
+  node(id: "VXNlcjox") {
+    id
+    ... on User {
+      ...UserFields
+    }
+  }
+  search(input: { query: "test" }) {
+    pageInfo {
+      ...PageInfoFields
+    }
+    edges {
+      cursor
+      node {
+        __typename
+        id
+        ... on User {
+          ...UserFields
+        }
+      }
+    }
+  }
+}
